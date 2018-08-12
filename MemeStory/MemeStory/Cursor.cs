@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MemeStory.Input;
+using System;
 
 namespace MemeStory.UI
 {
@@ -14,6 +16,7 @@ namespace MemeStory.UI
         {
             this.spriteBatch = spriteBatch;
             this.texture = texture;
+            MouseManager.Instance.SubscribeMove(OnLeftMousePress);
         }
 
         public void Update()
@@ -21,6 +24,11 @@ namespace MemeStory.UI
             MouseState state = Mouse.GetState();
             position.X = state.X;
             position.Y = state.Y;
+        }
+
+        public void OnLeftMousePress(object sender, LeftPressEventArgs args)
+        {
+
         }
 
         public void Draw() {
