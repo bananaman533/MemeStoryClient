@@ -9,6 +9,7 @@ namespace MemeStory.UI
 
         public bool ContainsCoords(Vector2 coords)
         {
+            if (TopLeftCoordinates)
             return (
                 coords.X >= TopLeftCoordinates.X &&
                 coords.X < TopLeftCoordinates.X + Dimensions.X &&

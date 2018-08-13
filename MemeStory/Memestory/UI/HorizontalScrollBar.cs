@@ -11,6 +11,7 @@ namespace MemeStory.UI
             TopLeftCoordinates = topLeftCoords;
             Dimensions = dimensions;
         }
-        
+
+
     }
 }
