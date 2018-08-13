@@ -8,14 +8,14 @@ namespace MemeStory.UI
         public int ZIndex // higher ZIndex is shown in front
         { get; set; }
 
-        public abstract void Update();
+        public virtual void Update() {}
 
         public abstract void Draw();
 
         public abstract bool ContainsCoords(Vector2 coords);
 
-        public abstract void Hover(Vector2 mousePos);
+        public virtual void Hover(Vector2 mousePos) {}
 
-        public abstract void LeftClick(Vector2 mousePos);
+        public virtual void LeftClick(Vector2 mousePos) {}
     }
 }

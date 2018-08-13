@@ -16,19 +16,14 @@ namespace MemeStory.UI
         {
             this.spriteBatch = spriteBatch;
             this.texture = texture;
-            MouseManager.Instance.SubscribeMove(OnLeftMousePress);
+            MouseManager.Instance.SubscribeMouseMove(OnMouseMove);
         }
 
-        public void Update()
+        public void OnMouseMove(object sender, MouseMoveEventArgs args)
         {
-            MouseState state = Mouse.GetState();
+            MouseState state = MouseManager.Instance.State;
             position.X = state.X;
             position.Y = state.Y;
-        }
-
-        public void OnLeftMousePress(object sender, LeftPressEventArgs args)
-        {
-
         }
 
         public void Draw() {
