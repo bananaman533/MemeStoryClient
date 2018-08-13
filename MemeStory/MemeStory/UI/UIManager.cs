@@ -5,8 +5,17 @@ namespace MemeStory.UI
 {
     class UIManager
     {
-        private List<UIElement> elements = new List<UIElement>();
-        private ZIndexComparer zIndexComparer = new ZIndexComparer();
+        public static UIManager Instance { get; set; }
+        
+        List<UIElement> elements = new List<UIElement>();
+        ZIndexComparer zIndexComparer = new ZIndexComparer();
+
+        public UIManager() {
+            if (Instance != null) {
+                throw (new System.Exception("UIManager was instantiated twice!"));
+            }
+            Instance = this;
+        }
 
         public void AddElement(UIElement element)
         {

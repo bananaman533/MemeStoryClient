@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MemeStory.UI;
+using MemeStory.Input;
 
 namespace MemeStory.Desktop
 {
@@ -10,6 +11,7 @@ namespace MemeStory.Desktop
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Cursor cursor;
+        MouseManager mouseManager;
 
         public Game1()
         {
@@ -19,6 +21,7 @@ namespace MemeStory.Desktop
 
         protected override void Initialize()
         {
+            mouseManager = new MouseManager();
             base.Initialize();
         }
 
@@ -36,7 +39,7 @@ namespace MemeStory.Desktop
             {
                 Exit();
             }
-            cursor.Update();
+            mouseManager.Update();
             base.Update(gameTime);
         }
 

@@ -7,10 +7,12 @@ namespace MemeStory.Input
     {
         public static MouseManager Instance { get; set; } = null;
 
-        public event EventHandler<LeftPressEventArgs> OnLeftPress;
-        public event EventHandler<LeftReleaseEventArgs> OnLeftRelease;
-        public event EventHandler<MoveEventArgs> OnMove;
-        private MouseState oldState;
+        public event EventHandler<MouseLeftPressEventArgs> OnLeftPress;
+        public event EventHandler<MouseLeftReleaseEventArgs> OnLeftRelease;
+        public event EventHandler<MouseMoveEventArgs> OnMove;
+        public MouseState State;
+
+        MouseState oldState;
 
         public MouseManager()
         {
@@ -23,46 +25,50 @@ namespace MemeStory.Input
 
         public void Update()
         {
-            MouseState newState = Mouse.GetState();
+            State = Mouse.GetState();
             if (oldState == null)
             {
-                oldState = newState;
+                oldState = State;
                 return;
             }
-            if (newState.X != oldState.X || newState.Y != oldState.Y)
-            {
-                OnMove(this, new MoveEventArgs());
+            if (OnMove != null && 
+                (State.X != oldState.X || State.Y != oldState.Y)
+            ) {
+                OnMove(this, new MouseMoveEventArgs());
             }
-            if (newState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
-            {
-                OnLeftPress(this, new LeftPressEventArgs());
+            if (OnLeftPress != null && 
+                (State.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
+            ) {
+                OnLeftPress(this, new MouseLeftPressEventArgs());
             }
-            if (newState.LeftButton == ButtonState.Released && oldState.LeftButton == ButtonState.Pressed)
-            {
-                OnLeftRelease(this, new LeftReleaseEventArgs());
+            if (OnLeftRelease != null && 
+                (State.LeftButton == ButtonState.Released && oldState.LeftButton == ButtonState.Pressed)
+            ) {
+                OnLeftRelease(this, new MouseLeftReleaseEventArgs());
             }
+            oldState = State;
         }
 
-        public Action SubscribeLeftPress(Func<object, LeftPressEventArgs> handler)
+        public Action SubscribeMouseLeftPress(EventHandler<MouseLeftPressEventArgs> handler)
         {
             OnLeftPress += handler;
             return () => { OnLeftPress -= handler; };
         }
 
-        public Action SubscribeLeftRelease(EventHandler<LeftReleaseEventArgs> handler)
+        public Action SubscribeMouseLeftRelease(EventHandler<MouseLeftReleaseEventArgs> handler)
         {
             OnLeftRelease += handler;
             return () => { OnLeftRelease -= handler; };
         }
 
-        public Action SubscribeMove(EventHandler<MoveEventArgs> handler)
+        public Action SubscribeMouseMove(EventHandler<MouseMoveEventArgs> handler)
         {
             OnMove += handler;
             return () => { OnMove -= handler; };
         }
     }
 
-    public class LeftPressEventArgs : EventArgs {}
-    public class LeftReleaseEventArgs : EventArgs {}
-    public class MoveEventArgs : EventArgs {}
+    public class MouseLeftPressEventArgs : EventArgs {}
+    public class MouseLeftReleaseEventArgs : EventArgs {}
+    public class MouseMoveEventArgs : EventArgs {}
 }

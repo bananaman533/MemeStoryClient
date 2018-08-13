@@ -4,11 +4,12 @@ namespace MemeStory.UI
 {
     public abstract class RectangularUIElement
     {
-        Vector2 TopLeftCoordinates;
-        Vector2 Dimensions;
+        public Vector2 TopLeftCoordinates;
+        public Vector2 Dimensions;
 
         public bool ContainsCoords(Vector2 coords)
         {
+            if (TopLeftCoordinates)
             return (
                 coords.X >= TopLeftCoordinates.X &&
                 coords.X < TopLeftCoordinates.X + Dimensions.X &&

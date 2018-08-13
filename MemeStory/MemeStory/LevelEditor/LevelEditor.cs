@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MemeStory.UI;
+using MemeStory.Input;
 
 namespace MemeStory.LevelEditor
 {
@@ -15,6 +16,7 @@ namespace MemeStory.LevelEditor
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Cursor cursor;
+        MouseManager mouseManager;
 
         public LevelEditor()
         {
@@ -27,6 +29,7 @@ namespace MemeStory.LevelEditor
 
         protected override void Initialize()
         {
+            mouseManager = new MouseManager();
             base.Initialize();
         }
 
@@ -44,7 +47,7 @@ namespace MemeStory.LevelEditor
             {
                 Exit();
             }
-            cursor.Update();
+            mouseManager.Update();
             base.Update(gameTime);
         }
 
